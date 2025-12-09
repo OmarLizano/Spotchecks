@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>SpotCheck Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
   <h1>SpotCheck Test Page</h1>
-  <p>If you see this text but no survey, check the browser console for errors.</p>
+  <p>If you see this text, the page is loading correctly. SpotCheck should appear as a popup or widget.</p>
 
-  <!-- Original SurveySparrow installation code -->
+  <!-- 🔹 Installation snippet from SurveySparrow -->
   <script id="ss-spot-script">
     (function () {
       var e = "ss-spotcheck-widget",
@@ -17,8 +18,11 @@
         a = document,
         r = window;
       var s, n, c;
+
+      // 👇 Make sure these match exactly what SurveySparrow gave you
       r.SP_TARGET_TOKEN = "tar-mdF96feGzw3p14P771inh7";
       r.SS_SP_ACCOUNT = "abc1234d.surveysparrow.com";
+
       if (!a.getElementById(e)) {
         var S = function () {
           S.update(arguments);
@@ -44,22 +48,22 @@
     })();
   </script>
 
-  <!-- 👇 This actually launches the widget -->
+  <!-- 🔹 Correct way to launch SpotCheck -->
   <script>
-    function launchSpotCheck() {
-      if (typeof SpotCheckLauncher === "function") {
-        SpotCheckLauncher({
-          // Optional: add targeting params here
-          // e.g. user_id: "123"
-        });
-      } else {
-        // Try again shortly – script may still be loading
-        setTimeout(launchSpotCheck, 200);
+    // The API expects: SpotCheckLauncher('<action>', { ...options... })
+    // 'popup' is the action that shows the survey popup
+    window.SpotCheckLauncher('popup', {
+      userDetails: {
+        // You can optionally pass email / id here
+        // email: "test@example.com",
+      },
+      variables: {
+        // Example: sparrowLang: "en"
+      },
+      properties: {
+        // Any custom properties you configured in SpotChecks
       }
-    }
-
-    // Start once the page has loaded
-    window.addEventListener("load", launchSpotCheck);
+    });
   </script>
 
 </body>
