@@ -2,39 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SpotCheck Survey</title>
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-
-    /* Adjust size of embedded widget */
-    #ss_survey_widget {
-      width: 100%;
-      min-height: 100vh;
-      height: auto;
-    }
-  </style>
+  <title>SpotCheck Test</title>
 </head>
 <body>
 
-  <!-- Survey Sparrow will inject the spotcheck widget here -->
-  <div id="ss_survey_widget"></div>
+  <h1>SpotCheck Test Page</h1>
+  <p>If you see this text but no survey, check the browser console for errors.</p>
 
-  <!-- SpotCheck Loader Script -->
+  <!-- Original SurveySparrow installation code -->
   <script id="ss-spot-script">
     (function () {
       var e = "ss-spotcheck-widget",
-          t = "script",
-          a = document,
-          r = window;
+        t = "script",
+        a = document,
+        r = window;
       var s, n, c;
-
-      /* 👇 Replace these with your actual values */
-      r.SP_TARGET_TOKEN = "tar-mdF96feGzw3p14P771inh7";  
-      r.SS_SP_ACCOUNT   = "abc1234d.surveysparrow.com";
-
+      r.SP_TARGET_TOKEN = "tar-mdF96feGzw3p14P771inh7";
+      r.SS_SP_ACCOUNT = "abc1234d.surveysparrow.com";
       if (!a.getElementById(e)) {
         var S = function () {
           S.update(arguments);
@@ -52,29 +36,29 @@
         n.id = e;
         n.src = [
           "https://",
-          r.SS_SP_ACCOUNT,
-          "/spotcheck/widget/",
-          r.SP_TARGET_TOKEN
+          "abc1234d.surveysparrow.com/spotcheck/widget/",
+          r.SP_TARGET_TOKEN,
         ].join("");
         c.parentNode.insertBefore(n, c);
       }
     })();
   </script>
 
-  <!-- Safe launcher call -->
+  <!-- 👇 This actually launches the widget -->
   <script>
     function launchSpotCheck() {
       if (typeof SpotCheckLauncher === "function") {
         SpotCheckLauncher({
-          // add custom params if needed
+          // Optional: add targeting params here
+          // e.g. user_id: "123"
         });
       } else {
-        // Retry until loaded (async load)
+        // Try again shortly – script may still be loading
         setTimeout(launchSpotCheck, 200);
       }
     }
 
-    // Start after page load
+    // Start once the page has loaded
     window.addEventListener("load", launchSpotCheck);
   </script>
 
